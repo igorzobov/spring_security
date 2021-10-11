@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class User {
-    private int id;
+    private long id;
 
     @NotEmpty(message = "placeholder for name is empty")
     @Size(min=2, max=30, message = "name should be between 2 and 20 characters")
@@ -21,18 +21,18 @@ public class User {
 
     public User() {}
 
-    public User(int id, String name, int age, String email) {
+    public User(long id, String name, int age, String email) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

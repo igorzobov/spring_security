@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class UserDaoImpl implements UserDao {
-    private static int ID;
+    private static long ID;
     List<User> userList;
     {
         userList = new ArrayList<>();
@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    public User show(int id) {
+    public User show(long id) {
         return userList.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 
@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
         userList.add(user);
     }
 
-    public void update(int id, User updatedUser) {
+    public void update(long id, User updatedUser) {
         User userToBeUpdated = show(id);
 
         userToBeUpdated.setName(updatedUser.getName());
@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
         userToBeUpdated.setEmail(updatedUser.getEmail());
     }
 
-    public void delete(int id) {
+    public void delete(long id) {
         userList.removeIf(u -> u.getId() == id);
     }
 }
