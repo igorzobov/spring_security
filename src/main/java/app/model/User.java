@@ -1,22 +1,29 @@
 package app.model;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotEmpty(message = "placeholder for name is empty")
     @Size(min=2, max=30, message = "name should be between 2 and 20 characters")
+    @Column(name = "name")
     private String name;
 
     @Min(value = 0, message = "age should be greater than 0")
+    @Max(value = 200, message = "are you afigel?")
+    @Column(name = "age")
     private int age;
 
     @NotEmpty(message = "placeholder for email is empty")
     @Email(message = "email is not correct")
+    @Column(name = "email")
     private String email;
 
     public User() {}
