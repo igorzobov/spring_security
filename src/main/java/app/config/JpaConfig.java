@@ -2,8 +2,11 @@ package app.config;
 
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -16,7 +19,11 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@PropertySource("classpath:db.properties")
 public class JpaConfig {
+
+    @Autowired
+    private Environment env;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -28,12 +35,12 @@ public class JpaConfig {
         em.setDataSource(dataSource());
         em.setPackagesToScan("app");
         em.setJpaVendorAdapter(vendorAdapter);
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
-        properties.setProperty("hibernate.connection.CharSet", "UTF-8");
-        properties.setProperty("hibernate.connection.useUnicode", "true");
-        properties.setProperty("hibernate.show_SQL", "hibernate.show_SQL");
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        properties.setProperty("hibernate.connection.characterEncoding", env.getProperty("hibernate.connection.characterEncoding"));
+        properties.setProperty("hibernate.connection.CharSet", env.getProperty("hibernate.connection.CharSet"));
+        properties.setProperty("hibernate.connection.useUnicode", env.getProperty("hibernate.connection.useUnicode"));
+        properties.setProperty("hibernate.show_SQL", env.getProperty("hibernate.show_SQL"));
         em.setJpaProperties(properties);
         return em;
     }
@@ -42,10 +49,10 @@ public class JpaConfig {
     public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
-            dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/usermanager");
-            dataSource.setUser("root");
-            dataSource.setPassword("root");
+            dataSource.setDriverClass(env.getProperty("db.driver"));
+            dataSource.setJdbcUrl(env.getProperty("db.url"));
+            dataSource.setUser(env.getProperty("db.username"));
+            dataSource.setPassword(env.getProperty("db.password"));
         } catch (Exception e){
             e.printStackTrace();
         }
