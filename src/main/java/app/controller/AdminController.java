@@ -50,7 +50,6 @@ public class AdminController {
     public String createUser(@ModelAttribute("user") @Valid User user,
                              @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
                              BindingResult bindingResult) {
-        System.out.println("controller here");
         if (bindingResult.hasErrors()) {
             return "admin/new";
         }
@@ -66,6 +65,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.show(id));
+//        model.addAttribute("roles", roleService.getAllRoles()); @TODO настроить вывод текущей роли юзера
         return "admin/edit";
     }
 
