@@ -1,6 +1,8 @@
 package app.controller;
 
+import app.model.Role;
 import app.model.User;
+import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,16 +11,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     private UserService userService;
+    private RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping()
@@ -34,15 +40,25 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String newUser(@ModelAttribute("user") User user
+//                          @ModelAttribute("role") Role role
+    ) {
         return "admin/new";
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String createUser(@ModelAttribute("user") @Valid User user,
+                             @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
+                             BindingResult bindingResult) {
+        System.out.println("controller here");
         if (bindingResult.hasErrors()) {
             return "admin/new";
         }
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : checkBoxRoles) {
+            roleSet.add(roleService.getRoleByName(role));
+        }
+        user.setRoles(roleSet);
         userService.save(user);
         return "redirect:/admin";
     }
@@ -54,11 +70,18 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+    public String update(@ModelAttribute("user") @Valid User user,
+                         @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
+                         BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "admin/edit";
         }
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : checkBoxRoles) {
+            roleSet.add(roleService.getRoleByName(role));
+        }
+        user.setRoles(roleSet);
         userService.update(id, user);
         return "redirect:/admin";
     }

@@ -52,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенеправления по ролям
                 .and().logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login");
-//                .and().csrf().disable();
+                .logoutSuccessUrl("/login")
+                .and().csrf().disable();
 
     }
 

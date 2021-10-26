@@ -1,8 +1,7 @@
 -- Table: users
-DROP TABLE users;
 CREATE TABLE users
 (
-    id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id       INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30)  NOT NULL,
     password VARCHAR(255) NOT NULL,
     age      INT          NOT NULL,
@@ -11,7 +10,6 @@ CREATE TABLE users
     ENGINE = InnoDB;
 
 -- Table: roles
-DROP TABLE roles;
 CREATE TABLE roles
 (
     id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,7 +18,6 @@ CREATE TABLE roles
     ENGINE = InnoDB;
 
 -- Table for mapping user and roles: user_roles
-DROP TABLE user_roles;
 CREATE TABLE user_roles
 (
     user_id INT NOT NULL,
@@ -35,10 +32,10 @@ CREATE TABLE user_roles
 
 -- Insert data
 
-INSERT INTO users
-VALUES (1, 'user', 'user', 22, 'user@mail.ru');
-INSERT INTO users
-VALUES (2, 'admin', 'admin', 33, 'admin@mail.ru');
+INSERT INTO users (username, password, age, email)
+VALUES ('user', 'user', 22, 'user@mail.ru');
+INSERT INTO users (username, password, age, email)
+VALUES ('admin', 'admin', 33, 'admin@mail.ru');
 
 INSERT INTO roles
 VALUES (1, 'ROLE_USER');
