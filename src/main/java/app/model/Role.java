@@ -19,8 +19,7 @@ public class Role implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role(long id, String role) {
-        this.id = id;
+    public Role(String role) {
         this.rolename = role;
     }
 
@@ -44,8 +43,25 @@ public class Role implements GrantedAuthority {
         this.rolename = role;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String getAuthority() {
         return rolename;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", rolename='" + rolename + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

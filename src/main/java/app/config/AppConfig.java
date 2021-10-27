@@ -13,6 +13,11 @@ public class AppConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         return null;
     }
 
+//    @Override
+//    protected Class<?>[] getRootConfigClasses() {
+//        return new Class<?>[]{JpaConfig.class};
+//    }
+
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{WebConfig.class};
@@ -32,8 +37,8 @@ public class AppConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         filterRegistration.addMappingForUrlPatterns(null, false, "/*");
     }
 
-    private void registerHiddenFieldFilter(ServletContext aContext) {
-        aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
-    }
+//    private void registerHiddenFieldFilter(ServletContext aContext) {
+//        aContext.addFilter("hiddenHttpMethodFilter",
+//                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+//    }
 }
