@@ -69,7 +69,7 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,
+    public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {

@@ -24,18 +24,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
-    public void updateRole(Role role) {
-        roleDao.updateRole(role);
-    }
-
-    @Override
-    @Transactional
-    public void removeRoleById(long id) {
-        roleDao.removeRoleById(id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
         return roleDao.getAllRoles();
