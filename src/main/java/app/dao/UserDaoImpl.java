@@ -1,8 +1,8 @@
 package app.dao;
 
 import app.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;

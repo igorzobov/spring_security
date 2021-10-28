@@ -60,7 +60,7 @@ public class JpaConfig {
             dataSource.setJdbcUrl(env.getProperty("db.url"));
             dataSource.setUser(env.getProperty("db.username"));
             dataSource.setPassword(env.getProperty("db.password"));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return dataSource;
@@ -74,7 +74,7 @@ public class JpaConfig {
     }
 
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
