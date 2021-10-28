@@ -40,9 +40,7 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user
-//                          @ModelAttribute("role") Role role
-    ) {
+    public String newUser(@ModelAttribute("user") User user) {
         return "admin/new";
     }
 
@@ -71,9 +69,7 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
-                         BindingResult bindingResult
-//                         @PathVariable("id") int id
-    ) {
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/edit";
         }
