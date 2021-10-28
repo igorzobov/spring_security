@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void update(long id, User user) {
+    public void update(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.update(id, user);
+        userDao.update(user);
     }
 
     @Transactional

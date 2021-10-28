@@ -71,8 +71,9 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles,
-                         BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         BindingResult bindingResult
+//                         @PathVariable("id") int id
+    ) {
         if (bindingResult.hasErrors()) {
             return "admin/edit";
         }
@@ -81,7 +82,7 @@ public class AdminController {
             roleSet.add(roleService.getRoleByName(role));
         }
         user.setRoles(roleSet);
-        userService.update(id, user);
+        userService.update(user);
         return "redirect:/admin";
     }
 

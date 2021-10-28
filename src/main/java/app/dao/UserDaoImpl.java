@@ -25,8 +25,7 @@ public class UserDaoImpl implements UserDao {
         entityManager.persist(user);
     }
 
-    public void update(long id, User user) {
-        user.setUser_id(id);
+    public void update(User user) {
         entityManager.merge(user);
     }
 
