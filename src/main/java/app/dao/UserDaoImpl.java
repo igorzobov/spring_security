@@ -40,4 +40,10 @@ public class UserDaoImpl implements UserDao {
                 User.class).setParameter("username", username);
         return query.getSingleResult();
     }
+
+    public User getUserById(long id) {
+        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.id=:id",
+                User.class).setParameter("id", id);
+        return query.getSingleResult();
+    }
 }

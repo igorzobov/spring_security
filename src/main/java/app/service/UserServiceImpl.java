@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,7 +40,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void update(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!Objects.equals(user.getPassword(), userDao.getUserById(user.getUser_id()).getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userDao.update(user);
     }
 
